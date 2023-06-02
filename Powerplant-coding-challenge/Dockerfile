@@ -20,6 +20,7 @@ FROM build AS publish
 RUN dotnet publish "Powerplant-coding-challenge.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
+ENV ASPNETCORE_URLS=http://+:8888/
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Powerplant-coding-challenge.dll"]
